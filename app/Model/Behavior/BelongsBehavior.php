@@ -1,7 +1,10 @@
 <?php
 /**
- * Models a Model belonging to a User.
+ * Represents a Model belonging to a User.
  *
+ * Provides common functions for a Model that belongs to a User.
+ *
+ * @author https://github.com/bretten
  */
 App::uses('ModelBehavior', 'Model');
 
@@ -28,9 +31,9 @@ class BelongsBehavior extends ModelBehavior {
     public function beforeSave(Model $Model, $options = array()) {
         // Assures that the foreign key to the User table is set with the user id
         if (isset($Model->data[$Model->alias])) {
-            $Model->data[$Model->alias][$this->settings['foreignKey']] = AuthComponent::user('id');
+            $Model->data[$Model->alias][$this->settings['foreignKey']] = AuthComponent::user($this->settings['userPrimaryKey']);
         } else {
-            $Model->data[$this->settings['foreignKey']] = AuthComponent::user('id');
+            $Model->data[$this->settings['foreignKey']] = AuthComponent::user($this->settings['userPrimaryKey']);
         }
     }
 
