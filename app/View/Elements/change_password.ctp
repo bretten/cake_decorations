@@ -24,7 +24,6 @@
 </div>
 <script type="text/javascript">
     function toggleInputs(active) {
-        console.log(active);
         $('<?php echo "{$inputId}, {$confirmId}"; ?>').prop('disabled', !active);
         $('<?php echo "#" . $container['id']; ?>').toggle(active);
     }
