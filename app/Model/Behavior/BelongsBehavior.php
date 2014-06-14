@@ -30,10 +30,12 @@ class BelongsBehavior extends ModelBehavior {
  */
     public function beforeSave(Model $Model, $options = array()) {
         // Assures that the foreign key to the User table is set with the user id
-        if (isset($Model->data[$Model->alias])) {
-            $Model->data[$Model->alias][$this->settings['foreignKey']] = AuthComponent::user($this->settings['userPrimaryKey']);
-        } else {
-            $Model->data[$this->settings['foreignKey']] = AuthComponent::user($this->settings['userPrimaryKey']);
+        if (isset($options['associateOwner']) && $options['associateOwner'] === true) {
+            if (isset($Model->data[$Model->alias])) {
+                $Model->data[$Model->alias][$this->settings['foreignKey']] = AuthComponent::user($this->settings['userPrimaryKey']);
+            } else {
+                $Model->data[$this->settings['foreignKey']] = AuthComponent::user($this->settings['userPrimaryKey']);
+            }
         }
     }
 
