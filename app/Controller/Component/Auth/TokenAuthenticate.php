@@ -69,6 +69,11 @@ class TokenAuthenticate extends BaseAuthenticate {
         // Get the headers
         $headers = apache_request_headers();
 
+        // Check for the Authorization header
+        if (!isset($headers[$this->settings['authHeader']])) {
+            return false;
+        }
+
         // Get the token
         $token = base64_decode($headers[$this->settings['authHeader']]);
 

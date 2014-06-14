@@ -95,7 +95,7 @@ class StatelessAuthComponent extends Component {
             // Get the headers
             $headers = apache_request_headers();
             // Authenticate
-            if (!$this->authenticate($headers[$this->settings['authHeader']])) {
+            if (!isset($headers[$this->settings['authHeader']]) || !$this->authenticate($headers[$this->settings['authHeader']])) {
                 $this->unauthenticated();
             }
         }
