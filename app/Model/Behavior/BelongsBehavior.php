@@ -37,6 +37,7 @@ class BelongsBehavior extends ModelBehavior {
                 $Model->data[$this->settings['foreignKey']] = AuthComponent::user($this->settings['userPrimaryKey']);
             }
         }
+        return true;
     }
 
 /**
