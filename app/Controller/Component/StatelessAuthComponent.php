@@ -122,7 +122,9 @@ class StatelessAuthComponent extends Component {
             unset($result[$this->settings['userModel']][$this->settings['passwordField']]);
         }
 
-        self::$_user = $result[$this->settings['userModel']];
+        if ($result) {
+            self::$_user = $result[$this->settings['userModel']];
+        }
 
         return (boolean)$result;
     }
