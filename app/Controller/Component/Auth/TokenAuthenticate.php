@@ -9,11 +9,11 @@ App::uses('BaseAuthenticate', 'Controller/Component/Auth');
  */
 class TokenAuthenticate extends BaseAuthenticate {
 
-/**
- * Settings
- *
- * @var array
- */
+    /**
+     * Settings
+     *
+     * @var array
+     */
     public $settings = array(
         'userModel' => 'User',
         'passwordField' => 'password',
@@ -21,12 +21,12 @@ class TokenAuthenticate extends BaseAuthenticate {
         'authHeader' => 'Authorization'
     );
 
-/**
- * Constructor
- *
- * @param ComponentCollection $collection
- * @param array $settings
- */
+    /**
+     * Constructor
+     *
+     * @param ComponentCollection $collection
+     * @param array $settings
+     */
     public function __construct(ComponentCollection $collection, $settings = array()) {
         $this->_Collection = $collection;
         $this->settings = array_merge($this->settings, $settings);
@@ -35,36 +35,36 @@ class TokenAuthenticate extends BaseAuthenticate {
         }
     }
 
-/**
- * Authenticate a User by checking the request for the token.
- *
- * @param CakeRequest $request
- * @param CakeResponse $response
- * @return mixed
- */
+    /**
+     * Authenticate a User by checking the request for the token.
+     *
+     * @param CakeRequest $request
+     * @param CakeResponse $response
+     * @return mixed
+     */
     public function authenticate(CakeRequest $request, CakeResponse $response) {
         return $this->getUser($request);
     }
 
-/**
- * Handles the case where authentication fails.
- *
- * @param CakeRequest $request
- * @param CakeResponse $response
- * @return mixed|void
- * @throws UnauthorizedException
- */
+    /**
+     * Handles the case where authentication fails.
+     *
+     * @param CakeRequest $request
+     * @param CakeResponse $response
+     * @return mixed|void
+     * @throws UnauthorizedException
+     */
     public function unauthenticated(CakeRequest $request, CakeResponse $response) {
         $Exception = new UnauthorizedException();
         throw $Exception;
     }
 
-/**
- * Examines the request and gets the data used for authentication.
- *
- * @param CakeRequest $request
- * @return bool|mixed
- */
+    /**
+     * Examines the request and gets the data used for authentication.
+     *
+     * @param CakeRequest $request
+     * @return bool|mixed
+     */
     public function getUser(CakeRequest $request) {
         // Get the headers
         $headers = apache_request_headers();
@@ -94,4 +94,4 @@ class TokenAuthenticate extends BaseAuthenticate {
         return $result[$this->settings['userModel']];
     }
 
-} 
+}

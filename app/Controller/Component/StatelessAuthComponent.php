@@ -12,11 +12,11 @@ App::uses('Component', 'Controller');
  */
 class StatelessAuthComponent extends Component {
 
-/**
- * Settings
- *
- * @var array
- */
+    /**
+     * Settings
+     *
+     * @var array
+     */
     public $settings = array(
         'userModel' => 'User',
         'passwordField' => 'password',
@@ -24,47 +24,47 @@ class StatelessAuthComponent extends Component {
         'authHeader' => 'Authorization'
     );
 
-/**
- * Components
- *
- * @var array
- */
+    /**
+     * Components
+     *
+     * @var array
+     */
     public $components = array('Auth');
 
-/**
- * A mapping of Controller actions that will use stateless authentication
- *
- * @var array
- */
+    /**
+     * A mapping of Controller actions that will use stateless authentication
+     *
+     * @var array
+     */
     public $map;
 
-/**
- * Request object
- *
- * @var CakeRequest
- */
+    /**
+     * Request object
+     *
+     * @var CakeRequest
+     */
     public $request;
 
-/**
- * Response object
- *
- * @var CakeResponse
- */
+    /**
+     * Response object
+     *
+     * @var CakeResponse
+     */
     public $response;
 
-/**
- * The authenticated User
- *
- * @var array
- */
+    /**
+     * The authenticated User
+     *
+     * @var array
+     */
     protected static $_user = array();
 
-/**
- * Constructor
- *
- * @param ComponentCollection $collection
- * @param array $settings
- */
+    /**
+     * Constructor
+     *
+     * @param ComponentCollection $collection
+     * @param array $settings
+     */
     public function __construct(ComponentCollection $collection, $settings = array()) {
         $this->_Collection = $collection;
         $this->settings = array_merge($this->settings, $settings);
@@ -74,13 +74,14 @@ class StatelessAuthComponent extends Component {
         }
     }
 
-/**
- * Called before the Controller's beforeFilter
- *
- * Checks if the current Controller action is in the map.  If it is, this components stateless authentication will be used.
- *
- * @param Controller $controller
- */
+    /**
+     * Called before the Controller's beforeFilter
+     *
+     * Checks if the current Controller action is in the map.  If it is, this components stateless authentication will
+     * be used.
+     *
+     * @param Controller $controller
+     */
     public function initialize(Controller $controller) {
         // Get the request and response
         $this->request = $controller->request;
@@ -95,18 +96,20 @@ class StatelessAuthComponent extends Component {
             // Get the headers
             $headers = apache_request_headers();
             // Authenticate
-            if (!isset($headers[$this->settings['authHeader']]) || !$this->authenticate($headers[$this->settings['authHeader']])) {
+            if (!isset($headers[$this->settings['authHeader']]) ||
+                !$this->authenticate($headers[$this->settings['authHeader']])
+            ) {
                 $this->unauthenticated();
             }
         }
     }
 
-/**
- * Authenticates a User by checking their token
- *
- * @param $auth
- * @return bool
- */
+    /**
+     * Authenticates a User by checking their token
+     *
+     * @param $auth
+     * @return bool
+     */
     public function authenticate($auth) {
         $token = base64_decode($auth);
 
@@ -129,22 +132,22 @@ class StatelessAuthComponent extends Component {
         return (boolean)$result;
     }
 
-/**
- * Handles an unauthenticated request
- *
- * @throws UnauthorizedException
- */
+    /**
+     * Handles an unauthenticated request
+     *
+     * @throws UnauthorizedException
+     */
     public function unauthenticated() {
         $Exception = new UnauthorizedException();
         throw $Exception;
     }
 
-/**
- * Returns information about the authenticated user
- *
- * @param null $key
- * @return array|mixed|null
- */
+    /**
+     * Returns information about the authenticated user
+     *
+     * @param null $key
+     * @return array|mixed|null
+     */
     public static function user($key = null) {
         if (!empty(self::$_user)) {
             $user = self::$_user;

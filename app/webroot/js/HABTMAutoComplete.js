@@ -3,7 +3,7 @@
  *
  * @author https://github.com/bretten
  */
-var HABTMAutoComplete = (function() {
+var HABTMAutoComplete = (function () {
 
     /**
      * Namespace
@@ -87,7 +87,7 @@ var HABTMAutoComplete = (function() {
      *
      * @type function
      */
-    ns.generateMarkup = function(id, value) {
+    ns.generateMarkup = function (id, value) {
         return '<li>' + value + '<button type="button" class="' + ns.selectors['remove'] + '" ' + ns.deleteAttr + '="' + id + '">x</button></li>';
     };
 
@@ -96,7 +96,7 @@ var HABTMAutoComplete = (function() {
      *
      * @param params Object containing setup parameters.
      */
-    var construct = function(params) {
+    var construct = function (params) {
         ns.all = params.all;
         ns.current = params.current;
         ns.deleteAttr = params.deleteAttr;
@@ -112,7 +112,7 @@ var HABTMAutoComplete = (function() {
     /**
      * Sets up necessary listeners.
      */
-    var listeners = function() {
+    var listeners = function () {
         // Generates the initial markup
         for (var i = 0; i < ns.current.length; i++) {
             $(ns.selectors['container']).append(ns.generateMarkup(ns.current[i].id, ns.current[i].name));
@@ -121,7 +121,7 @@ var HABTMAutoComplete = (function() {
         // Autocomplete handler
         $(ns.selectors['autocomplete']).autocomplete({
             source: ns.all,
-            select: function(event, ui) {
+            select: function (event, ui) {
                 if (exists(ui.item.id, ns.current, 'id') === -1) {
                     ns.current.push({
                         id: ui.item.id,
@@ -136,8 +136,8 @@ var HABTMAutoComplete = (function() {
                     return false;
                 }
             },
-            response: function(event, ui) {
-                if(ui.content.length === 0) {
+            response: function (event, ui) {
+                if (ui.content.length === 0) {
                     var value = $(this).val();
 
                     if (confirm("Add '" + value + "'?")) {
@@ -148,7 +148,8 @@ var HABTMAutoComplete = (function() {
                             });
 
                             // Append the markup to the container
-                            $(ns.selectors['container']).append(ns.generateMarkup(ns.newPrefix + event.timeStamp, value));
+                            $(ns.selectors['container']).append(ns.generateMarkup(ns.newPrefix + event.timeStamp,
+                                value));
                         }
 
                         $(this).val("");
@@ -158,11 +159,11 @@ var HABTMAutoComplete = (function() {
         });
 
         // Listener for handling adding the exact value in the input regardless of whether an autocomplete value was found
-        $(ns.selectors['add']).click(function(e) {
+        $(ns.selectors['add']).click(function (e) {
             var value = $(ns.selectors['autocomplete']).val();
             if ($.trim(value).length > 0) {
                 // Check if it already exists
-                if (exists(value, ns.current, 'name') >= 0|| exists(value, ns.new, 'value') >= 0) {
+                if (exists(value, ns.current, 'name') >= 0 || exists(value, ns.new, 'value') >= 0) {
                     alert('Already exists.');
 
                     return false;
@@ -183,7 +184,7 @@ var HABTMAutoComplete = (function() {
         });
 
         // Handles removal of a HABTM from the internal "current" array and removes the markup.
-        $(document).on('click', ns.selectors['remove'], function() {
+        $(document).on('click', ns.selectors['remove'], function () {
             var id = $(this).attr(ns.deleteAttr);
             var ref; // Reference to the array object
             // If the delete attribute is prefixed with the new indicator, it is a new object
@@ -202,7 +203,7 @@ var HABTMAutoComplete = (function() {
         });
 
         // On a form submit, will take all the ids in the internal "current" array and selects the corresponding option in the hidden multiple option input
-        $(ns.selectors['form']).submit(function(e) {
+        $(ns.selectors['form']).submit(function (e) {
             // Select the corresponding options for the internal "current" array
             for (var i = 0; i < ns.current.length; i++) {
                 $(ns.selectors['hidden_options'] + ' option[value="' + ns.current[i].id + '"]').prop('selected', true);
@@ -221,7 +222,7 @@ var HABTMAutoComplete = (function() {
      * @param property The property to check
      * @returns {number}
      */
-    var exists = function(needle, haystack, property) {
+    var exists = function (needle, haystack, property) {
         for (var i = 0; i < haystack.length; i++) {
             if (needle === haystack[i][property]) {
                 return i;
