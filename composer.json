@@ -1,0 +1,20 @@
+{
+  "name": "bretten/cake_decorations",
+  "description": "Collection of Behaviors, Components, and Helpers",
+  "type": "library",
+  "keywords": [
+    "cakephp",
+    "plugin"
+  ],
+  "homepage": "https://github.com/bretten",
+  "authors": [
+    {
+      "name": "Brett Namba",
+      "homepage": "http://www.brettnamba.com",
+      "role": "Author"
+    }
+  ],
+  "require": {
+    "cakephp/cakephp": ">=2.7.* <3.0"
+  }
+}
