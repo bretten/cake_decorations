@@ -160,4 +160,4 @@ class StatelessAuthComponent extends Component {
         return Hash::get($user, $key);
     }
 
-} 
+}
