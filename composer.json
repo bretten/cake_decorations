@@ -15,6 +15,6 @@
     }
   ],
   "require": {
-    "cakephp/cakephp": ">=2.7.* <3.0"
+    "cakephp/cakephp": ">=2.7.0 <3.0"
   }
 }
