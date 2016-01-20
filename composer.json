@@ -1,7 +1,7 @@
 {
   "name": "bretten/cake_decorations",
   "description": "Collection of Behaviors, Components, and Helpers",
-  "type": "library",
+  "type": "cakephp-plugin",
   "keywords": [
     "cakephp",
     "plugin"
@@ -15,6 +15,7 @@
     }
   ],
   "require": {
+    "composer/installers": "~1.0",
     "cakephp/cakephp": ">=2.7.0 <3.0"
   }
 }
