@@ -47,16 +47,17 @@ class TokenAuthenticate extends BaseAuthenticate {
     }
 
     /**
-     * Handles the case where authentication fails.
+     * Handles the case where authentication fails
+     *
+     * Returns true to indicate this method will not handle any unauthenticated responses and that the
+     * Controller will do it instead
      *
      * @param CakeRequest $request
      * @param CakeResponse $response
      * @return mixed|void
-     * @throws UnauthorizedException
      */
     public function unauthenticated(CakeRequest $request, CakeResponse $response) {
-        $Exception = new UnauthorizedException();
-        throw $Exception;
+        return true;
     }
 
     /**
@@ -86,12 +87,20 @@ class TokenAuthenticate extends BaseAuthenticate {
             'callbacks' => false
         ));
 
-        // Remove the password
-        if (isset($result[$this->settings['userModel']][$this->settings['passwordField']])) {
-            unset($result[$this->settings['userModel']][$this->settings['passwordField']]);
+        // No User was found
+        if (empty($result[$this->settings['userModel']])) {
+            return false;
         }
 
-        return $result[$this->settings['userModel']];
+        // Extract the User data
+        $user = $result[$this->settings['userModel']];
+
+        // Remove the password
+        if (isset($user[$this->settings['passwordField']])) {
+            unset($user[$this->settings['passwordField']]);
+        }
+
+        return $user;
     }
 
 }
