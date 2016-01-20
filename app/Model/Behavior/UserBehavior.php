@@ -9,6 +9,21 @@ App::uses('ModelBehavior', 'Model');
 class UserBehavior extends ModelBehavior {
 
     /**
+     * Default settings
+     *
+     * @var array
+     */
+    public $settings = array(
+        'passwordField' => 'password',
+        'confirmPassword' => array(
+            'field' => 'confirm_password',
+            'ruleName' => 'confirmPassword',
+            'ruleMessage' => 'Please make sure both passwords are the same.'
+        ),
+        'hashType' => 'sha256'
+    );
+
+    /**
      * Initiate behavior
      *
      * @param Model $Model instance of model
@@ -51,7 +66,8 @@ class UserBehavior extends ModelBehavior {
         // Hash the password field before saving
         if (isset($Model->data[$Model->alias][$this->settings['passwordField']])) {
             $Model->data[$Model->alias][$this->settings['passwordField']] =
-                AuthComponent::password($Model->data[$Model->alias][$this->settings['passwordField']]);
+                Security::hash($Model->data[$Model->alias][$this->settings['passwordField']],
+                    $this->settings['hashType'], true);
         }
         return true;
     }
