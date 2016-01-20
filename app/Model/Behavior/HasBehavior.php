@@ -9,6 +9,13 @@ App::uses('ModelBehavior', 'Model');
 class HasBehavior extends ModelBehavior {
 
     /**
+     * Default settings
+     *
+     * @var array
+     */
+    public $settings = array();
+
+    /**
      * Initiate behavior
      *
      * @param Model $Model instance of model

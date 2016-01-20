@@ -18,6 +18,20 @@ App::uses('ModelBehavior', 'Model');
 class VerificationBehavior extends ModelBehavior {
 
     /**
+     * Default settings
+     *
+     * @var array
+     */
+    public $settings = array(
+        'expiresAfter' => 48,
+        'fields' => array(
+            'key' => 'verify_key',
+            'code' => 'verify_code',
+            'timestamp' => 'verify_time'
+        )
+    );
+
+    /**
      * Initiate behavior
      *
      * @param Model $Model instance of model

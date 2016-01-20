@@ -11,6 +11,16 @@ App::uses('ModelBehavior', 'Model');
 class BelongsBehavior extends ModelBehavior {
 
     /**
+     * Default settings
+     *
+     * @var array
+     */
+    public $settings = array(
+        'userPrimaryKey' => 'id',
+        'foreignKey' => 'user_id'
+    );
+
+    /**
      * Initiate behavior
      *
      * @param Model $Model instance of model

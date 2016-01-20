@@ -9,6 +9,16 @@ App::uses('ModelBehavior', 'Model');
 class ResourceBehavior extends ModelBehavior {
 
     /**
+     * Default settings
+     *
+     * @var array
+     */
+    public $settings = array(
+        'etagField' => 'etag',
+        'autoSave' => true
+    );
+
+    /**
      * Initiate behavior
      *
      * @param Model $Model instance of model
